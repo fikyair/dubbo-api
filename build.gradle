@@ -1,0 +1,28 @@
+apply plugin: 'java'
+apply plugin: 'eclipse'
+apply plugin: 'maven'
+
+repositories{
+	maven{
+		url "http://172.16.60.188.8081/nexus/content/groups/public"
+	}
+}
+
+dependencies {
+}
+
+uploadArchives {
+	repositories {
+		mavenDeployer {
+			snapshotRepository(url: "http://172.16.60.188:8081/nexus/content/repositories/snapshots/"){
+				authentication(userName: 'deployment', password: 'lemon888')
+			}
+			repository(url: "http://172.16.60.188:8081/nexus/content/repositories/releases/"){
+				authentication(userName: 'deployment', password: 'lemon888')
+			}
+			pom.groupId = 'com.suixingpay.spark'
+			pom.artifactId = 'dubbo-test'
+			pom.version = "16.0-dev-SNAPSHOT"
+		}
+	}
+}
